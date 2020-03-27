@@ -1,0 +1,4 @@
+{
+    "mongoURI":"mongodb+srv://tazarchenko:Gagarin2019@cluster0-r2uon.mongodb.net/contacts-keeper?retryWrites=true&w=majority",
+    "jwtSecret": "MyLittleDirtySecret"
+}
