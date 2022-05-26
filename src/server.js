@@ -1,5 +1,6 @@
 const express = require('express')
-const cors = require('cors')
+const path = require('path')
+// const cors = require('cors')
 
 require('./db/mongoose')
 
@@ -9,20 +10,25 @@ const userRouter = require('./routers/userRouter')
 const server = express()
 const port = process.env.PORT || 4000
 
-const corsOptions ={
-    credentials: true
-}
+// const corsOptions ={
+//     credentials: true
+// }
 
-server.use(cors())
+// server.use(cors())
 
 
 server.use(express.json())
 server.use(contactRouter)
 server.use(userRouter)
 
-server.use('/', (req,res)=>{
-    res.send('Hello!')
-})
+if (process.env.NODE_ENV ==='production') {
+    server.use(express.static('client/build'))
+
+    server.get('*', (req, res)=>{
+        res.sendFile(path.resolve(__dirname, 'client','build', 'index.html'))
+    })
+}
+
 
 server.listen(port, ()=>{
     console.log('Server is running on port ', port)
